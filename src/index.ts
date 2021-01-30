@@ -10,6 +10,10 @@ export function atLeast(minimum: number): Clamper {
   };
 }
 
-export function atMost(_maximum: number): Clamper {
-  throw new Error("not implemented");
+export function atMost(maximum: number): Clamper {
+  return {
+    clamp(value: number) {
+      return Math.min(maximum, value);
+    },
+  };
 }
