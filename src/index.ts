@@ -1,8 +1,11 @@
 interface Clamper {
-  atLeast(minumum: number): Clamper;
   clamp(value: number): number;
 }
 
-export function atLeast(_minimum: number): Clamper {
-  throw Error("not implemented");
+export function atLeast(minimum: number): Clamper {
+  return {
+    clamp(value: number) {
+      return Math.max(minimum, value);
+    },
+  };
 }
