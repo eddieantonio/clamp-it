@@ -9,3 +9,7 @@ export function atLeast(minimum: number): Clamper {
     },
   };
 }
+
+export function atMost(_maximum: number): Clamper {
+  throw new Error("not implemented");
+}
