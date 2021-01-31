@@ -8,7 +8,14 @@ export function atLeast(minimum: number): Clamper {
     clamp(value: number) {
       return Math.max(minimum, value);
     },
-    atMost: notImplemeted,
+    atMost(maximum): Clamper {
+      return {
+        clamp(value: number) {
+          return Math.min(maximum, Math.max(minimum, value));
+        },
+        atMost: notImplemeted,
+      };
+    },
   };
 }
 
