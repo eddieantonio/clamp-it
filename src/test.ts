@@ -1,6 +1,9 @@
 import test from "ava";
+import { testProp, fc } from "ava-fast-check";
 
 import { atLeast, atMost } from "./";
+
+/////////////////////////////// Example tests ////////////////////////////////
 
 test("atLeast", (t) => {
   t.is(atLeast(3).clamp(0), 3);
@@ -50,3 +53,41 @@ test("narrow an existing complete range", (t) => {
   t.is(range.clamp(5), 5);
   t.is(range.clamp(0), 3);
 });
+
+/////////////////////////////////// Errors ///////////////////////////////////
+
+test("atLeast throws on NAN", (t) => {
+  t.throws(() => atLeast(NaN), { instanceOf: RangeError });
+});
+
+/////////////////////////////// Property tests ///////////////////////////////
+
+testProp(
+  "clamped value is always greater than minimum",
+  [fc.double({ next: true }), fc.double({ next: true })],
+  (t, minimum, value) => {
+    t.true(atLeast(minimum).clamp(value) >= minimum);
+  }
+);
+
+testProp(
+  "clamped value is less than maximum",
+  [fc.double({ next: true }), fc.double({ next: true })],
+  (t, maximum, value) => {
+    t.true(atMost(maximum).clamp(value) <= maximum);
+  }
+);
+
+testProp(
+  "clamped value is always within range",
+  [
+    fc.double({ next: true }),
+    fc.double({ next: true }),
+    fc.double({ next: true }),
+  ],
+  (t, a, b, value) => {
+    const [min, max] = a < b ? [a, b] : [b, a];
+    t.true(atLeast(min).atMost(max).clamp(value) >= min);
+    t.true(atLeast(min).atMost(max).clamp(value) <= max);
+  }
+);
