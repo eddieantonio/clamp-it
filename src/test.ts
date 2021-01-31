@@ -150,7 +150,7 @@ testProp("clamping the bound gives the bound", [validNumber()], (t, bound) => {
 
 testProp(
   "contradictory bounds throw errors",
-  [fc.tuple(validNumber(), validNumber()).filter(([a, b]) => a !== b)],
+  [uniquePairOfNumbers()],
   (t, [a, b]) => {
     const [smaller, bigger] = a < b ? [a, b] : [b, a];
     t.throws(() => atLeast(bigger).atMost(smaller), { instanceOf: RangeError });
@@ -163,4 +163,8 @@ testProp(
  */
 function validNumber() {
   return fc.double({ next: true, noNaN: true });
+}
+
+function uniquePairOfNumbers() {
+  return fc.tuple(validNumber(), validNumber()).filter(([a, b]) => a !== b);
 }
