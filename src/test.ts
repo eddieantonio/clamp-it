@@ -81,6 +81,12 @@ test("atMost.atLeast throws on NaN", (t) => {
   t.throws(() => atMost(0).atLeast(NaN), { instanceOf: RangeError });
 });
 
+test("within() throws on NaN", (t) => {
+  t.throws(() => within(NaN, 0), { instanceOf: RangeError });
+  t.throws(() => within(0, NaN), { instanceOf: RangeError });
+  t.throws(() => within(NaN, NaN), { instanceOf: RangeError });
+});
+
 /////////////////////////////// Property tests ///////////////////////////////
 
 testProp(
