@@ -94,6 +94,25 @@ testProp(
     const [min, max] = a < b ? [a, b] : [b, a];
     t.true(atLeast(min).atMost(max).clamp(value) >= min);
     t.true(atLeast(min).atMost(max).clamp(value) <= max);
+    t.true(atMost(max).atLeast(min).clamp(value) >= min);
+    t.true(atMost(max).atLeast(min).clamp(value) <= max);
+  }
+);
+
+testProp("atLeast propegates NaNs", [validNumber()], (t, bound) => {
+  t.is(atLeast(bound).clamp(NaN), NaN);
+});
+
+testProp("atMost propegates NaNs", [validNumber()], (t, bound) => {
+  t.is(atMost(bound).clamp(NaN), NaN);
+});
+
+testProp(
+  "bounded range propegates NaNs",
+  [validNumber(), validNumber()],
+  (t, a, b) => {
+    const [min, max] = a < b ? [a, b] : [b, a];
+    t.is(atLeast(min).atMost(max).clamp(NaN), NaN);
   }
 );
 
