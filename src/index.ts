@@ -44,6 +44,10 @@ class AtMost implements Clamper {
   private _max: number;
 
   constructor(maximum: number) {
+    if (isNaN(maximum)) {
+      throw new RangeError("bound must be a number, but got NaN");
+    }
+
     this._max = maximum;
   }
 
@@ -65,6 +69,14 @@ class Within implements Clamper {
   private _max: number;
 
   constructor(minimum: number, maximum: number) {
+    if (isNaN(minimum)) {
+      throw new RangeError("minimum must be a number, but got NaN");
+    }
+
+    if (isNaN(maximum)) {
+      throw new RangeError("maximum must be a number, but got NaN");
+    }
+
     this._min = minimum;
     this._max = maximum;
   }
