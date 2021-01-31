@@ -8,6 +8,10 @@ export function atMost(maximum: number): Clamper {
   return new AtMost(maximum);
 }
 
+export function within(a: number, b: number): Clamper {
+  return new Within(a, b);
+}
+
 ////////////////////////////// Internal classes //////////////////////////////
 
 interface Clamper {

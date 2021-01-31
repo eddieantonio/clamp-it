@@ -1,7 +1,7 @@
 import test from "ava";
 import { testProp, fc } from "ava-fast-check";
 
-import { atLeast, atMost } from "./";
+import { atLeast, atMost, within } from "./";
 
 /////////////////////////////// Example tests ////////////////////////////////
 
@@ -52,6 +52,12 @@ test("narrow an existing complete range", (t) => {
   t.is(range.clamp(3), 3);
   t.is(range.clamp(5), 5);
   t.is(range.clamp(0), 3);
+});
+
+test("basic within() test", (t) => {
+  t.is(within(3, 7).clamp(0), 3);
+  t.is(within(3, 7).clamp(5), 5);
+  t.is(within(3, 7).clamp(10), 7);
 });
 
 /////////////////////////////////// Errors ///////////////////////////////////
