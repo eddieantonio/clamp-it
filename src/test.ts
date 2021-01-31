@@ -91,7 +91,7 @@ testProp(
   "clamped value is always within range",
   [validNumber(), validNumber(), validNumber()],
   (t, a, b, value) => {
-    const [min, max] = a < b ? [a, b] : [b, a];
+    const [min, max] = ordered(a, b);
     t.true(atLeast(min).atMost(max).clamp(value) >= min);
     t.true(atLeast(min).atMost(max).clamp(value) <= max);
     t.true(atMost(max).atLeast(min).clamp(value) >= min);
@@ -111,7 +111,7 @@ testProp(
   "bounded range propegates NaNs",
   [validNumber(), validNumber()],
   (t, a, b) => {
-    const [min, max] = a < b ? [a, b] : [b, a];
+    const [min, max] = ordered(a, b);
     t.is(atLeast(min).atMost(max).clamp(NaN), NaN);
   }
 );
@@ -152,7 +152,7 @@ testProp(
   "contradictory bounds throw errors",
   [uniquePairOfNumbers()],
   (t, [a, b]) => {
-    const [smaller, bigger] = a < b ? [a, b] : [b, a];
+    const [smaller, bigger] = ordered(a, b);
     t.throws(() => atLeast(bigger).atMost(smaller), { instanceOf: RangeError });
     t.throws(() => atMost(smaller).atLeast(bigger), { instanceOf: RangeError });
   }
@@ -165,6 +165,16 @@ function validNumber() {
   return fc.double({ next: true, noNaN: true });
 }
 
+/**
+ * Returns an Array of two unique, valid numbers.
+ */
 function uniquePairOfNumbers() {
   return fc.tuple(validNumber(), validNumber()).filter(([a, b]) => a !== b);
+}
+
+/**
+ * Returns the two numbers in ascending order.
+ */
+function ordered(a: number, b: number): [number, number] {
+  return a <= b ? [a, b] : [b, a];
 }
