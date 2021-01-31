@@ -176,6 +176,22 @@ testProp(
   }
 );
 
+testProp(
+  "within() is equivalent as atLeast() + atMost()",
+  [uniquePairOfNumbers(), validNumber()],
+  (t, [a, b], value) => {
+    const [smaller, bigger] = ordered(a, b);
+    t.is(
+      within(a, b).clamp(value),
+      atLeast(smaller).atMost(bigger).clamp(value)
+    );
+    t.is(
+      within(a, b).clamp(value),
+      atMost(bigger).atLeast(smaller).clamp(value)
+    );
+  }
+);
+
 /**
  * A number, finite or non-finite. Cannot yield NaN.
  */
