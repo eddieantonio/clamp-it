@@ -56,7 +56,7 @@ test("narrow an existing complete range", (t) => {
 
 /////////////////////////////////// Errors ///////////////////////////////////
 
-test("atLeast throws on NAN", (t) => {
+test("atLeast throws on NaN", (t) => {
   t.throws(() => atLeast(NaN), { instanceOf: RangeError });
 });
 
@@ -64,7 +64,7 @@ test("atLeast throws on NAN", (t) => {
 
 testProp(
   "clamped value is always greater than minimum",
-  [fc.double({ next: true }), fc.double({ next: true })],
+  [validNumber(), validNumber()],
   (t, minimum, value) => {
     t.true(atLeast(minimum).clamp(value) >= minimum);
   }
@@ -72,7 +72,7 @@ testProp(
 
 testProp(
   "clamped value is less than maximum",
-  [fc.double({ next: true }), fc.double({ next: true })],
+  [validNumber(), validNumber()],
   (t, maximum, value) => {
     t.true(atMost(maximum).clamp(value) <= maximum);
   }
@@ -80,14 +80,17 @@ testProp(
 
 testProp(
   "clamped value is always within range",
-  [
-    fc.double({ next: true }),
-    fc.double({ next: true }),
-    fc.double({ next: true }),
-  ],
+  [validNumber(), validNumber(), validNumber()],
   (t, a, b, value) => {
     const [min, max] = a < b ? [a, b] : [b, a];
     t.true(atLeast(min).atMost(max).clamp(value) >= min);
     t.true(atLeast(min).atMost(max).clamp(value) <= max);
   }
 );
+
+/**
+ * A number, finite or non-finite. Cannot yield NaN.
+ */
+function validNumber() {
+  return fc.double({ next: true, noNaN: true });
+}

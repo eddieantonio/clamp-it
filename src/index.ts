@@ -20,6 +20,10 @@ class AtLeast implements Clamper {
   private _min: number;
 
   constructor(minimum: number) {
+    if (isNaN(minimum)) {
+      throw new RangeError("bound must be a number, but got NaN");
+    }
+
     this._min = minimum;
   }
 
