@@ -116,6 +116,31 @@ testProp(
   }
 );
 
+testProp(
+  "atLeast with infinite bound becomes identity function",
+  [validNumber()],
+  (t, value) => {
+    t.is(atLeast(-Infinity).clamp(value), value);
+  }
+);
+
+testProp(
+  "atMost with infinite bound becomes identity function",
+  [validNumber()],
+  (t, value) => {
+    t.is(atMost(Infinity).clamp(value), value);
+  }
+);
+
+testProp(
+  "bounded range with infinite bounds becomes identity function",
+  [validNumber()],
+  (t, value) => {
+    t.is(atLeast(-Infinity).atMost(Infinity).clamp(value), value);
+    t.is(atMost(Infinity).atLeast(-Infinity).clamp(value), value);
+  }
+);
+
 /**
  * A number, finite or non-finite. Cannot yield NaN.
  */
