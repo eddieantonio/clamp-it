@@ -1,24 +1,18 @@
+///////////////////////////////// Public API /////////////////////////////////
+
+export function atLeast(minimum: number): Clamper {
+  return new AtLeast(minimum);
+}
+
+export function atMost(maximum: number): Clamper {
+  return new AtMost(maximum);
+}
+
+////////////////////////////// Internal classes //////////////////////////////
+
 interface Clamper {
   clamp(value: number): number;
   atMost(value: number): Clamper;
-}
-
-class ClosedClamper implements Clamper {
-  private _min: number;
-  private _max: number;
-
-  constructor(minimum: number, maximum: number) {
-    this._min = minimum;
-    this._max = maximum;
-  }
-
-  clamp(value: number): number {
-    return Math.min(this._max, Math.max(this._min, value));
-  }
-
-  atMost(): Clamper {
-    return notImplemeted();
-  }
 }
 
 class AtLeast implements Clamper {
@@ -53,12 +47,22 @@ class AtMost implements Clamper {
   }
 }
 
-export function atLeast(minimum: number): Clamper {
-  return new AtLeast(minimum);
-}
+class ClosedClamper implements Clamper {
+  private _min: number;
+  private _max: number;
 
-export function atMost(maximum: number): Clamper {
-  return new AtMost(maximum);
+  constructor(minimum: number, maximum: number) {
+    this._min = minimum;
+    this._max = maximum;
+  }
+
+  clamp(value: number): number {
+    return Math.min(this._max, Math.max(this._min, value));
+  }
+
+  atMost(): Clamper {
+    return notImplemeted();
+  }
 }
 
 function notImplemeted(): never {
