@@ -9,6 +9,7 @@ export function atMost(maximum: number): Clamper {
 }
 
 export function within(a: number, b: number): Clamper {
+  if (b < a) return new Within(b, a);
   return new Within(a, b);
 }
 

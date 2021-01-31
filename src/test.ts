@@ -60,6 +60,12 @@ test("basic within() test", (t) => {
   t.is(within(3, 7).clamp(10), 7);
 });
 
+test("within() with reversed arguments", (t) => {
+  t.is(within(7, 3).clamp(0), 3);
+  t.is(within(7, 3).clamp(5), 5);
+  t.is(within(7, 3).clamp(10), 7);
+});
+
 /////////////////////////////////// Errors ///////////////////////////////////
 
 test("atLeast throws on NaN", (t) => {
