@@ -14,4 +14,5 @@ test("atMost", (t) => {
 
 test("combine the two", (t) => {
   t.is(atLeast(3).atMost(7).clamp(0), 3);
+  t.is(atMost(7).atLeast(3).clamp(0), 3);
 });

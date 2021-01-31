@@ -13,6 +13,7 @@ export function atMost(maximum: number): Clamper {
 interface Clamper {
   clamp(value: number): number;
   atMost(value: number): Clamper;
+  atLeast(value: number): Clamper;
 }
 
 class AtLeast implements Clamper {
@@ -24,6 +25,10 @@ class AtLeast implements Clamper {
 
   clamp(value: number) {
     return Math.max(this._min, value);
+  }
+
+  atLeast(): Clamper {
+    return notImplemeted();
   }
 
   atMost(maximum: number): Clamper {
@@ -42,6 +47,10 @@ class AtMost implements Clamper {
     return Math.min(this._max, value);
   }
 
+  atLeast(): Clamper {
+    return notImplemeted();
+  }
+
   atMost(_value: number): Clamper {
     notImplemeted();
   }
@@ -58,6 +67,10 @@ class ClosedClamper implements Clamper {
 
   clamp(value: number): number {
     return Math.min(this._max, Math.max(this._min, value));
+  }
+
+  atLeast(): Clamper {
+    return notImplemeted();
   }
 
   atMost(): Clamper {
