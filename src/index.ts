@@ -51,8 +51,8 @@ class AtMost implements Clamper {
     return new ClosedClamper(minimum, this._max);
   }
 
-  atMost(_value: number): Clamper {
-    notImplemeted();
+  atMost(maximum: number): Clamper {
+    return new AtMost(this.clamp(maximum));
   }
 }
 
