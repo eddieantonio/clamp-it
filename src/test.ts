@@ -36,3 +36,17 @@ test("narrow atMost", (t) => {
   );
   t.is(atMost(3).atMost(7).clamp(0), 0);
 });
+
+test("narrow an existing complete range", (t) => {
+  let range;
+
+  range = atLeast(3).atMost(10).atMost(7);
+  t.is(range.clamp(0), 3);
+  t.is(range.clamp(5), 5);
+  t.is(range.clamp(10), 7);
+
+  range = atLeast(0).atMost(10).atLeast(3);
+  t.is(range.clamp(3), 3);
+  t.is(range.clamp(5), 5);
+  t.is(range.clamp(0), 3);
+});
