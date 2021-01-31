@@ -37,19 +37,30 @@ class AtLeast implements Clamper {
   }
 }
 
+class AtMost implements Clamper {
+  private _max: number;
+
+  constructor(maximum: number) {
+    this._max = maximum;
+  }
+
+  clamp(value: number) {
+    return Math.min(this._max, value);
+  }
+
+  atMost(_value: number): Clamper {
+    notImplemeted();
+  }
+}
+
 export function atLeast(minimum: number): Clamper {
   return new AtLeast(minimum);
 }
 
 export function atMost(maximum: number): Clamper {
-  return {
-    clamp(value: number) {
-      return Math.min(maximum, value);
-    },
-    atMost: notImplemeted,
-  };
+  return new AtMost(maximum);
 }
 
-function notImplemeted(): Clamper {
+function notImplemeted(): never {
   throw new Error("not implemented");
 }
