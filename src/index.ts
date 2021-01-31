@@ -69,15 +69,11 @@ class Within implements Clamper {
     return Math.min(this._max, Math.max(this._min, value));
   }
 
-  atLeast(): Clamper {
-    return notImplemeted();
+  atLeast(minimum: number): Clamper {
+    return new Within(this.clamp(minimum), this._max);
   }
 
-  atMost(): Clamper {
-    return notImplemeted();
+  atMost(maximum: number): Clamper {
+    return new Within(this._min, this.clamp(maximum));
   }
-}
-
-function notImplemeted(): never {
-  throw new Error("not implemented");
 }
