@@ -27,8 +27,8 @@ class AtLeast implements Clamper {
     return Math.max(this._min, value);
   }
 
-  atLeast(): Clamper {
-    return notImplemeted();
+  atLeast(minimum: number): Clamper {
+    return new AtLeast(this.clamp(minimum));
   }
 
   atMost(maximum: number): Clamper {
