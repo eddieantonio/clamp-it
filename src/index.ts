@@ -21,15 +21,24 @@ class ClosedClamper implements Clamper {
   }
 }
 
+class AtLeast implements Clamper {
+  private _min: number;
+
+  constructor(minimum: number) {
+    this._min = minimum;
+  }
+
+  clamp(value: number) {
+    return Math.max(this._min, value);
+  }
+
+  atMost(maximum: number): Clamper {
+    return new ClosedClamper(this._min, maximum);
+  }
+}
+
 export function atLeast(minimum: number): Clamper {
-  return {
-    clamp(value: number) {
-      return Math.max(minimum, value);
-    },
-    atMost(maximum): Clamper {
-      return new ClosedClamper(minimum, maximum);
-    },
-  };
+  return new AtLeast(minimum);
 }
 
 export function atMost(maximum: number): Clamper {
