@@ -32,7 +32,7 @@ class AtLeast implements Clamper {
   }
 
   atMost(maximum: number): Clamper {
-    return new ClosedClamper(this._min, maximum);
+    return new Within(this._min, maximum);
   }
 }
 
@@ -48,7 +48,7 @@ class AtMost implements Clamper {
   }
 
   atLeast(minimum: number): Clamper {
-    return new ClosedClamper(minimum, this._max);
+    return new Within(minimum, this._max);
   }
 
   atMost(maximum: number): Clamper {
@@ -56,7 +56,7 @@ class AtMost implements Clamper {
   }
 }
 
-class ClosedClamper implements Clamper {
+class Within implements Clamper {
   private _min: number;
   private _max: number;
 
