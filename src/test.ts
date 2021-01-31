@@ -150,8 +150,8 @@ testProp("clamping the bound gives the bound", [validNumber()], (t, bound) => {
 
 testProp(
   "contradictory bounds throw errors",
-  [validNumber(), validNumber()],
-  (t, a, b) => {
+  [fc.tuple(validNumber(), validNumber()).filter(([a, b]) => a !== b)],
+  (t, [a, b]) => {
     const [smaller, bigger] = a < b ? [a, b] : [b, a];
     t.throws(() => atLeast(bigger).atMost(smaller), { instanceOf: RangeError });
     t.throws(() => atMost(smaller).atLeast(bigger), { instanceOf: RangeError });
