@@ -1,7 +1,7 @@
 {
-  "name": "clamper",
+  "name": "clamp-it",
   "version": "1.0.0",
-  "description": "",
+  "description": "Clamps values within ranges",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -9,7 +9,7 @@
     "test": "ava"
   },
   "keywords": [],
-  "author": "",
+  "author": "Eddie Antonio Santos <eddieantonio@hey.com>",
   "license": "ISC",
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
