@@ -77,6 +77,12 @@ class Within implements Clamper {
       throw new RangeError("maximum must be a number, but got NaN");
     }
 
+    if (minimum > maximum) {
+      throw new RangeError(
+        `contradictory bounds: ${minimum} was not less than or equal to ${maximum}`
+      );
+    }
+
     this._min = minimum;
     this._max = maximum;
   }
