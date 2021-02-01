@@ -192,6 +192,14 @@ testProp(
   }
 );
 
+testProp(
+  "order of arguments for within() doesn't matter",
+  [uniquePairOfNumbers(), validNumber()],
+  (t, [a, b], value) => {
+    t.is(within(a, b).clamp(value), within(b, a).clamp(value));
+  }
+);
+
 /**
  * A number, finite or non-finite. Cannot yield NaN.
  */
