@@ -1,13 +1,23 @@
 ///////////////////////////////// Public API /////////////////////////////////
 
+/**
+ * Clamp values that must be greater than or equal to the given minimum.
+ */
 export function atLeast(minimum: number): Clamper {
   return new AtLeast(minimum);
 }
 
+/**
+ * Clamp values that must be less than or equal to the given minimum.
+ */
 export function atMost(maximum: number): Clamper {
   return new AtMost(maximum);
 }
 
+/**
+ * Clamp values that must be bound within a given closed range.
+ * The order of the arguments does not matter.
+ */
 export function within(a: number, b: number): Clamper {
   if (b < a) return new Within(b, a);
   return new Within(a, b);
@@ -17,8 +27,8 @@ export function within(a: number, b: number): Clamper {
 
 interface Clamper {
   clamp(value: number): number;
-  atMost(value: number): Clamper;
-  atLeast(value: number): Clamper;
+  atMost(maximum: number): Clamper;
+  atLeast(minimum: number): Clamper;
 }
 
 class AtLeast implements Clamper {
