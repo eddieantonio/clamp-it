@@ -1,7 +1,8 @@
 clamp-it
 ========
 
-![Build](https://github.com/eddieantonio/clamp-it/workflows/Build/badge.svg)
+[![Build](https://github.com/eddieantonio/clamp-it/workflows/Build/badge.svg)](https://github.com/eddieantonio/clamp-it/actions?query=workflow%3ABuild)
+[![npm version](https://img.shields.io/npm/v/clamp-it)](https://www.npmjs.com/package/clamp-it)
 
 Clamps numbers to given bounds.
 
@@ -39,7 +40,7 @@ And you may ask yourself: How did we get here? Why am I using `max` to
 specify a minimum. Why am I using `min` to specify a maximum. This
 isn't my beautiful house! This isn't my beautiful wife!
 
-![David Byrne doing David Byrne things](https://i.gifer.com/9pon.gif)
+![David Byrne doing David Byrne things](https://media.giphy.com/media/14mXrKfiQA1swo/giphy.gif)
 
 Usage
 -----
